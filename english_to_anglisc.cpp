@@ -1,9 +1,32 @@
 #include <iostream>
 #include <unordered_map>
-#include <map>
+#include <vector>
 #include <sstream>
 
-std::unordered_map<std::string, std::string> TRANSFORMATIONS = {
+std::vector<std::pair<std::string, std::string>> TRANSFORMATIONS = {
+    {"accursed", "acursed"},
+    {"allay", "alay"},
+    {"afford", "aford"},
+    {"affright", "afright"},
+    {"anneal", "aneal"},
+    {"guess", "gess"},
+    {"guest", "gest"},
+    {"guild", "gild"},
+    {"ache", "ake"},
+    {"acre", "aker"},
+    {"ghastly", "gastly"},
+    {"ghost", "goast"},
+    {"harbour", "harbor"},
+    {"island", "iland"},
+    {"liar", "lier"},
+    {"lily", "lilly"},
+    {"mould", "mold"},
+    {"neighbour", "neigbor"},
+    {"Rhine", "Rine"},
+    {"rhyme", "rime"},
+    {"sailor", "sailer"},
+    {"scythe", "sithe"},
+    {"tongue", "tung"},
     {"c", "s"},
     {"ch", "c"},
     {"tch", "c"},
@@ -26,36 +49,6 @@ std::unordered_map<std::string, std::string> TRANSFORMATIONS = {
     {"z", "s"},
 };
 
-std::map<char, char> translation_map = {
-    {'a', 'A'},
-    {'b', 'B'},
-    {'c', 'C'},
-    {'d', 'D'},
-    {'e', 'E'},
-    {'f', 'F'},
-    {'g', 'G'},
-    {'h', 'H'},
-    {'i', 'I'},
-    {'j', 'J'},
-    {'k', 'K'},
-    {'l', 'L'},
-    {'m', 'M'},
-    {'n', 'N'},
-    {'o', 'O'},
-    {'p', 'P'},
-    {'q', 'Q'},
-    {'r', 'R'},
-    {'s', 'S'},
-    {'t', 'T'},
-    {'u', 'U'},
-    {'v', 'V'},
-    {'w', 'W'},
-    {'x', 'X'},
-    {'y', 'Y'},
-    {'z', 'Z'},
-    {'\xc6', '\x7F'},
-    {'\xc8', '\x80'}};
-
 void replaceAll(std::string &str, const std::string &from, const std::string &to)
 {
     size_t start_pos = 0;
@@ -76,13 +69,6 @@ std::string translate_to_anglish(const std::string &english)
         for (auto const &pair : TRANSFORMATIONS)
         {
             replaceAll(word, pair.first, pair.second);
-        }
-        for (char &c : word)
-        {
-            if (translation_map.find(c) != translation_map.end())
-            {
-                c = translation_map[c];
-            }
         }
         anglish += word + " ";
     }
