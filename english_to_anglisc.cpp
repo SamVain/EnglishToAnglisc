@@ -1,9 +1,8 @@
 #include <iostream>
-#include <unordered_map>
 #include <vector>
-#include <sstream>
+#include <unordered_map>
 
-std::vector<std::pair<std::string, std::string>> TRANSFORMATIONS = {
+std::vector<std::pair<std::string, std::string>> transformations = {
     {"accursed", "acursed"},
     {"allay", "alay"},
     {"afford", "aford"},
@@ -27,27 +26,26 @@ std::vector<std::pair<std::string, std::string>> TRANSFORMATIONS = {
     {"sailor", "sailer"},
     {"scythe", "sithe"},
     {"tongue", "tung"},
-    {"c", "s"},
-    {"ch", "c"},
     {"tch", "c"},
     {"dge", "cg"},
+    {"ough", "uge"},
+    {"wh", "hƿ"},
+    {"qu", "cƿ"},
+    {"ch", "c"},
     {"gh", "g"},
     {"ie", "ee"},
     {"le", "el"},
-    {"o", "u"},
     {"ou", "u"},
     {"ow", "u"},
-    {"ough", "uge"},
-    {"qu", "cƿ"},
-    {"sh", "sc"},
     {"th", "þ"},
+    {"sh", "sc"},
+    {"c", "s"},
+    {"o", "u"},
     {"u", "eƿ"},
     {"v", "f"},
     {"w", "ƿ"},
-    {"wh", "hƿ"},
     {"y", "g"},
-    {"z", "s"},
-};
+    {"z", "s"}};
 
 void replaceAll(std::string &str, const std::string &from, const std::string &to)
 {
@@ -61,26 +59,19 @@ void replaceAll(std::string &str, const std::string &from, const std::string &to
 
 std::string translate_to_anglish(const std::string &english)
 {
-    std::istringstream ss(english);
-    std::string anglish = "";
-    std::string word;
-    while (ss >> word)
+    std::string anglish = english;
+    for (auto &pair : transformations)
     {
-        for (auto const &pair : TRANSFORMATIONS)
-        {
-            replaceAll(word, pair.first, pair.second);
-        }
-        anglish += word + " ";
+        replaceAll(anglish, pair.first, pair.second);
     }
     return anglish;
 }
 
 int main()
 {
-    std::string english_text = "This is some sample English text.";
+    std::string english_text = "This is some sample English text. Affright, anneal, ghost, island, scythe, and neighbour.";
     std::cout << "English: " << english_text << std::endl;
-    std::string anglish_text = translate_to_anglish(english_text);
-    std::cout << "Anglish: " << anglish_text << std::endl;
+    std::cout << "Anglish: " << translate_to_anglish(english_text) << std::endl;
 
     return 0;
 }
